@@ -3,7 +3,7 @@
 #define LAW_SUPPLIED "supplied"
 #define LAW_ION "ion"
 #define LAW_HACKED "hacked"
-
+#define LAW_DEVIL "devil"
 
 /datum/ai_laws
 	var/name = "Unknown Laws"
@@ -13,6 +13,7 @@
 	var/list/supplied = list()
 	var/list/ion = list()
 	var/list/hacked = list()
+	var/list/devillaws = list()
 	var/mob/living/silicon/owner
 	var/id = DEFAULT_AI_LAWID
 
@@ -270,6 +271,8 @@
 	var/law_amount = 0
 	if(zeroth && (LAW_ZEROTH in groups))
 		law_amount++
+	if(devillaws && (LAW_DEVIL in groups))
+		law_amount++
 	if(ion.len && (LAW_ION in groups))
 		law_amount += ion.len
 	if(hacked.len && (LAW_HACKED in groups))
@@ -283,10 +286,19 @@
 				law_amount++
 	return law_amount
 
+/datum/ai_laws/proc/set_law_sixsixsix(laws)
+	devillaws = laws
+
 /datum/ai_laws/proc/set_zeroth_law(law, law_borg = null)
 	zeroth = law
 	if(law_borg) //Making it possible for slaved borgs to see a different law 0 than their AI. --NEO
 		zeroth_borg = law_borg
+
+
+/datum/ai_laws/proc/clear_law_sixsixsix(force)
+	if(force || !is_devil(owner))
+		devillaws = null
+
 
 /datum/ai_laws/proc/add_inherent_law(law)
 	if (!(law in inherent))
@@ -433,6 +445,10 @@
  */
 /datum/ai_laws/proc/get_law_list(include_zeroth = FALSE, show_numbers = TRUE, render_html = TRUE)
 	var/list/data = list()
+
+	if (include_zeroth && devillaws)
+		for(var/law in devillaws)
+			data += "[show_numbers ? "666:" : ""] [render_html ? "<font color='#cc5500'>[law]</font>" : law]"
 
 	if (include_zeroth && zeroth)
 		data += "[show_numbers ? "0:" : ""] [render_html ? "<font color='#ff0000'><b>[zeroth]</b></font>" : zeroth]"

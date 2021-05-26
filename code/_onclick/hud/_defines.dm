@@ -171,3 +171,7 @@
 #define ui_ghost_mafia "SOUTH: 6, CENTER+2:24"
 
 #define ui_wanted_lvl "NORTH,11"
+
+//Devil
+#define ui_devilsouldisplay "WEST:6,CENTER-1:15"
+

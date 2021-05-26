@@ -129,11 +129,13 @@
 	var/mob/living/stored
 	var/mob/living/shape
 	var/restoring = FALSE
+	var/datum/soullink/shapeshift/slink
 	var/obj/effect/proc_holder/spell/targeted/shapeshift/source
 
 /obj/shapeshift_holder/Initialize(mapload,obj/effect/proc_holder/spell/targeted/shapeshift/_source, mob/living/caster)
 	. = ..()
 	source = _source
+	src.source = source
 	shape = loc
 	if(!istype(shape))
 		CRASH("shapeshift holder created outside mob/living")
@@ -149,6 +151,8 @@
 		shape.apply_damage(damapply, source.convert_damage_type, forced = TRUE, wound_bonus=CANT_WOUND);
 		shape.blood_volume = stored.blood_volume;
 
+	slink = soullink(/datum/soullink/shapeshift, stored , shape)
+	slink.source = src
 	RegisterSignal(shape, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), .proc/shape_death)
 	RegisterSignal(stored, list(COMSIG_PARENT_QDELETING, COMSIG_LIVING_DEATH), .proc/caster_death)
 
@@ -219,3 +223,16 @@
 		QDEL_NULL(shape)
 
 	qdel(src)
+
+
+/datum/soullink/shapeshift
+	var/obj/shapeshift_holder/source
+
+/datum/soullink/shapeshift/ownerDies(gibbed, mob/living/owner)
+	if(source)
+		source.casterDeath(gibbed)
+
+/datum/soullink/shapeshift/sharerDies(gibbed, mob/living/sharer)
+	if(source)
+		source.shapeDeath(gibbed)
+

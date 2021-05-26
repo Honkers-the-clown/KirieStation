@@ -895,6 +895,10 @@
 	if (suiciding)
 		return DEFIB_FAIL_SUICIDE
 
+	if (hellbound)
+		return DEFIB_FAIL_HELLBOUND
+
+
 	if (HAS_TRAIT(src, TRAIT_HUSK))
 		return DEFIB_FAIL_HUSK
 

@@ -1,5 +1,11 @@
 #define TRANSFORMATION_DURATION 22
 
+/*
+This goes in here somehow and I have no fucking clue
+	if(hellbound)
+		O.hellbound = hellbound
+		*/
+
 /mob/living/carbon/proc/monkeyize()
 	if (notransform || transformation_timer)
 		return
