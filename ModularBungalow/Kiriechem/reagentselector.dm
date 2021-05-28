@@ -7,11 +7,7 @@
 	max_input_reagent_amount = 1
 	min_input_reagents = 5
 	max_input_reagents = 5
-	possible_reagents = list(/datum/reagent/ammonia, /datum/reagent/ash, /datum/reagent/acetone,
-						/datum/reagent/drug/space_drugs, /datum/reagent/toxin/cyanide, /datum/reagent/diethylamine, /datum/reagent/phenol,
-						/datum/reagent/saltpetre, /datum/reagent/lye, /datum/reagent/medicine/granibitaluri, /datum/reagent/acetaldehyde,
-						/datum/reagent/medicine/atropine, /datum/reagent/toxin/formaldehyde, /datum/reagent/toxin/fentanyl, /datum/reagent/drug/methamphetamine,
-						/datum/reagent/medicine/c2/libital, /datum/reagent/medicine/c2/aiuri, /datum/reagent/medicine/c2/multiver, /datum/reagent/medicine/c2/convermol)
+	possible_reagents = list(/datum/reagent/mixer)
 
 	max_catalysts = 0
 
